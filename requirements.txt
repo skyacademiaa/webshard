@@ -1,0 +1,33 @@
+# Core
+Django==5.1.8
+django-environ==0.11.2
+gunicorn==23.0.0
+whitenoise==6.12.0
+
+# Database
+psycopg2-binary==2.9.10
+
+# Admin & Forms
+django-jazzmin==3.0.1
+django-crispy-forms==2.3
+crispy-tailwind==1.0.3
+
+# Media & Images
+Pillow==10.4.0
+django-imagekit==5.0.0
+
+# SEO
+django-meta==2.4.2
+
+# Security
+django-axes==7.0.1
+
+# Content Editor
+django-ckeditor-5==0.2.15
+django-taggit==6.1.0
+
+# Caching
+django-redis==5.4.0
+
+# API (optional for future mobile app)
+djangorestframework==3.15.2

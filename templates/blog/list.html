@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}مقالات و یادداشت‌های تخصصی | {{ site_settings.site_name|default:"Tech Service" }}{% endblock %}
+
+{% block meta_description %}آخرین مقالات آموزشی درباره طراحی وب، سئو، فناوری‌های جدید و استراتژی‌های دیجیتال.{% endblock %}
+
+{% block content %}
+<div class="py-12 lg:py-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Breadcrumb -->
+    {% include 'components/breadcrumb.html' %}
+
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <span class="text-emerald-400 text-sm font-semibold tracking-wider uppercase">دانشنامه و وبلاگ</span>
+      <h1 class="text-3xl sm:text-5xl font-black text-white mt-2 mb-4">مقالات تخصصی و آموزش‌ها</h1>
+      <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+        بینش‌ها و راهنماهای کاربردی پیرامون بهبود حضور آنلاین، توسعه نرم‌افزار و بازاریابی دیجیتال.
+      </p>
+    </div>
+
+    <!-- Category Filter Tabs -->
+    {% if categories %}
+    <div class="flex flex-wrap items-center justify-center gap-2 mb-12">
+      <a href="{% url 'blog:list' %}" 
+         class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all {% if not active_category %}bg-emerald-500 text-white shadow-lg shadow-emerald-500/25{% else %}glass-panel text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800{% endif %}">
+        همه مقالات
+      </a>
+      {% for cat in categories %}
+      <a href="{% url 'blog:category' cat.slug %}" 
+         class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all {% if active_category == cat.slug %}bg-emerald-500 text-white shadow-lg shadow-emerald-500/25{% else %}glass-panel text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800{% endif %}">
+        {{ cat.name }}
+      </a>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Articles Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {% for article in articles %}
+      <article class="glass-card rounded-2xl overflow-hidden flex flex-col group border border-slate-800 hover:border-emerald-500/30 transition-all">
+        <!-- Cover -->
+        <div class="h-48 bg-slate-800 overflow-hidden relative">
+          {% if article.cover %}
+          <img src="{{ article.cover.url }}" alt="{{ article.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          {% else %}
+          <div class="w-full h-full flex items-center justify-center bg-slate-800 text-slate-600">
+            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
+          </div>
+          {% endif %}
+          {% if article.category %}
+          <span class="absolute top-3 right-3 bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-full text-[11px] text-emerald-400 border border-slate-700">
+            {{ article.category.name }}
+          </span>
+          {% endif %}
+        </div>
+
+        <!-- Info -->
+        <div class="p-6 flex flex-col flex-grow justify-between">
+          <div>
+            <div class="flex items-center gap-3 text-xs text-slate-500 mb-3">
+              <span>{{ article.published_at|date:"Y/m/d" }}</span>
+              <span>•</span>
+              <span>{{ article.reading_time|default:3 }} دقیقه مطالعه</span>
+            </div>
+            <h3 class="text-base font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors">
+              <a href="{% url 'blog:detail' article.slug %}">{{ article.title }}</a>
+            </h3>
+            <p class="text-xs text-slate-400 line-clamp-3 leading-relaxed">
+              {{ article.excerpt|default:article.content|striptags|truncatewords:25 }}
+            </p>
+          </div>
+
+          <div class="pt-4 mt-4 border-t border-slate-800/80 flex items-center justify-between">
+            <span class="text-[11px] text-slate-500">نویسنده: {{ article.author_name|default:"تیم تحریریه" }}</span>
+            <a href="{% url 'blog:detail' article.slug %}" class="text-xs font-bold text-emerald-400 hover:text-emerald-300 inline-flex items-center gap-1">
+              مطالعه مقاله ←
+            </a>
+          </div>
+        </div>
+      </article>
+      {% empty %}
+      <div class="col-span-3 text-center py-16 glass-panel rounded-2xl text-slate-400">
+        مقاله‌ای برای نمایش یافت نشد.
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if is_paginated %}
+    <div class="flex items-center justify-center gap-2 mt-12">
+      {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}" class="px-4 py-2 rounded-xl glass-panel text-xs text-slate-300 hover:text-white">قبلی</a>
+      {% endif %}
+      <span class="text-xs text-slate-400 px-3">صفحه {{ page_obj.number }} از {{ paginator.num_pages }}</span>
+      {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}" class="px-4 py-2 rounded-xl glass-panel text-xs text-slate-300 hover:text-white">بعدی</a>
+      {% endif %}
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+{% endblock %}

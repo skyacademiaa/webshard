@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}سفارش پروژه طراحی و توسعه وب | {{ site_settings.site_name|default:"Tech Service" }}{% endblock %}
+
+{% block meta_description %}ثبت آنلاین سفارش پروژه وب‌سایت، CRM و نرم‌افزار. فرم دریافت نیازها و هماهنگی جلسه مشاوره رایگان.{% endblock %}
+
+{% block content %}
+<div class="py-12 lg:py-16">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Breadcrumb -->
+    {% include 'components/breadcrumb.html' %}
+
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <span class="text-emerald-400 text-sm font-semibold tracking-wider uppercase">همکاری با ما</span>
+      <h1 class="text-3xl sm:text-5xl font-black text-white mt-2 mb-4">ثبت سفارش پروژه</h1>
+      <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+        فرم زیر را با جزئیات پروژه خود تکمیل نمایید. کارشناسان ما پس از بررسی فنی در کمتر از ۲۴ ساعت کاری برای ارائه مشاوره و پیش‌فاکتور با شما تماس می‌گیرند.
+      </p>
+    </div>
+
+    <!-- Form Container -->
+    <div id="quote-form-container" class="glass-panel p-8 sm:p-12 rounded-3xl border border-slate-800 shadow-2xl relative">
+      <div class="absolute -top-10 -right-10 w-40 h-40 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+      <form hx-post="{% url 'quote:quote' %}" 
+            hx-target="#quote-form-container" 
+            hx-swap="innerHTML"
+            class="space-y-6">
+        {% csrf_token %}
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-2">نام و نام خانوادگی *</label>
+            {{ form.name }}
+            {% if form.name.errors %}<span class="text-xs text-red-400 mt-1">{{ form.name.errors.0 }}</span>{% endif %}
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-2">نام شرکت یا برند (اختیاری)</label>
+            {{ form.company }}
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-2">شماره تماس همراه *</label>
+            {{ form.phone }}
+            {% if form.phone.errors %}<span class="text-xs text-red-400 mt-1">{{ form.phone.errors.0 }}</span>{% endif %}
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-2">آدرس ایمیل</label>
+            {{ form.email }}
+            {% if form.email.errors %}<span class="text-xs text-red-400 mt-1">{{ form.email.errors.0 }}</span>{% endif %}
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-2">نوع پروژه *</label>
+            {{ form.project_type }}
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-2">بازه بودجه مدنظر</label>
+            {{ form.budget_range }}
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-2">زمان‌بندی تحویل</label>
+            {{ form.timeline }}
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-2">لینک نمونه یا وب‌سایت مرجع مورد علاقه (اختیاری)</label>
+          {{ form.reference_url }}
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-2">شرح نیازمندی‌ها و اهداف پروژه *</label>
+          {{ form.description }}
+          {% if form.description.errors %}<span class="text-xs text-red-400 mt-1">{{ form.description.errors.0 }}</span>{% endif %}
+        </div>
+
+        <div class="pt-4">
+          <button type="submit" 
+                  class="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold text-base shadow-xl shadow-emerald-500/25 transition-all flex items-center justify-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            ارسال و ثبت نهایی سفارش پروژه
+          </button>
+        </div>
+
+        <div class="text-center text-xs text-slate-500 pt-2">
+          اطلاعات شما نزد ما محفوظ است و هیچ‌گونه پیام تبلیغاتی ناخواسته ارسال نخواهد شد.
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ project.meta_title|default:project.title }} | {{ site_settings.site_name|default:"Tech Service" }}{% endblock %}
+
+{% block meta_description %}{{ project.meta_description|default:project.short_description }}{% endblock %}
+
+{% block content %}
+<div class="py-12 lg:py-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Breadcrumb -->
+    <nav class="flex items-center text-xs text-slate-400 mb-8 py-3 px-4 glass-panel rounded-xl max-w-fit">
+      <ol class="inline-flex items-center space-x-1 space-x-reverse">
+        <li><a href="{% url 'core:home' %}" class="hover:text-emerald-400">صفحه اصلی</a></li>
+        <li class="px-2">/</li>
+        <li><a href="{% url 'portfolio:list' %}" class="hover:text-emerald-400">نمونه‌کارها</a></li>
+        <li class="px-2">/</li>
+        <li class="text-emerald-400 font-semibold">{{ project.title }}</li>
+      </ol>
+    </nav>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      
+      <!-- Project Details (8 cols) -->
+      <div class="lg:col-span-8 space-y-8">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-semibold mb-3 border border-emerald-500/20">
+            {{ project.category.name|default:"پروژه وب" }}
+          </div>
+          <h1 class="text-3xl sm:text-4xl font-black text-white mb-4">
+            {{ project.title }}
+          </h1>
+          <p class="text-base sm:text-lg text-slate-300 leading-relaxed">
+            {{ project.short_description }}
+          </p>
+        </div>
+
+        <!-- Cover Image -->
+        {% if project.cover %}
+        <div class="rounded-2xl overflow-hidden border border-slate-800 shadow-2xl">
+          <img src="{{ project.cover.url }}" alt="{{ project.title }}" class="w-full h-full object-cover">
+        </div>
+        {% elif project.thumbnail %}
+        <div class="rounded-2xl overflow-hidden border border-slate-800 shadow-2xl">
+          <img src="{{ project.thumbnail.url }}" alt="{{ project.title }}" class="w-full h-full object-cover">
+        </div>
+        {% endif %}
+
+        <!-- Long Description -->
+        <div class="glass-panel p-8 rounded-2xl border border-slate-800 text-slate-300 text-sm sm:text-base leading-relaxed space-y-4">
+          <h2 class="text-xl font-bold text-white mb-4">درباره این پروژه</h2>
+          {{ project.description|linebreaks }}
+        </div>
+
+        <!-- Gallery Images if any -->
+        {% if project.images.all %}
+        <div class="space-y-4">
+          <h3 class="text-xl font-bold text-white">تصاویر بیشتر از پروژه</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {% for img in project.images.all %}
+            <div class="rounded-xl overflow-hidden border border-slate-800">
+              <img src="{{ img.image.url }}" alt="{{ img.caption|default:project.title }}" class="w-full h-auto object-cover">
+              {% if img.caption %}
+              <div class="p-2 text-xs text-slate-400 text-center bg-slate-900/60">{{ img.caption }}</div>
+              {% endif %}
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+
+      </div>
+
+      <!-- Project Metadata Sidebar (4 cols) -->
+      <div class="lg:col-span-4 sticky top-28 space-y-6">
+        <div class="glass-panel rounded-2xl p-6 border border-slate-800 space-y-5">
+          <h3 class="text-base font-bold text-white pb-3 border-b border-slate-800">مشخصات پروژه</h3>
+          
+          <ul class="space-y-4 text-sm">
+            {% if project.client_name %}
+            <li class="flex items-center justify-between">
+              <span class="text-slate-400">کارفرما / سفارش‌دهنده:</span>
+              <span class="font-bold text-white">{{ project.client_name }}</span>
+            </li>
+            {% endif %}
+            {% if project.completed_at %}
+            <li class="flex items-center justify-between">
+              <span class="text-slate-400">تاریخ تحویل:</span>
+              <span class="font-bold text-white">{{ project.completed_at|date:"Y/m" }}</span>
+            </li>
+            {% endif %}
+            <li class="flex items-center justify-between">
+              <span class="text-slate-400">دسته‌بندی:</span>
+              <span class="font-bold text-emerald-400">{{ project.category.name|default:"وب‌سایت" }}</span>
+            </li>
+          </ul>
+
+          <!-- Technologies used -->
+          {% if project.get_tech_list %}
+          <div class="pt-4 border-t border-slate-800">
+            <span class="text-xs text-slate-400 block mb-2 font-medium">فناوری‌های به‌کار رفته:</span>
+            <div class="flex flex-wrap gap-1.5">
+              {% for tech in project.get_tech_list %}
+              <span class="text-xs bg-slate-800 text-slate-200 px-2.5 py-1 rounded-lg border border-slate-700/60 font-mono">
+                {{ tech }}
+              </span>
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+
+          {% if project.website_url %}
+          <div class="pt-4">
+            <a href="{{ project.website_url }}" target="_blank" rel="noopener" class="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 transition-all">
+              <span>مشاهده آنلاین وب‌سایت پروژه</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            </a>
+          </div>
+          {% endif %}
+
+          <div class="pt-2">
+            <a href="{% url 'quote:quote' %}" class="w-full py-3 rounded-xl glass-panel text-slate-200 hover:text-white text-xs font-semibold flex items-center justify-center gap-2 border border-slate-700">
+              سفارش پروژه‌ای مشابه این
+            </a>
+          </div>
+        </div>
+
+        <!-- Related Projects -->
+        {% if related_projects %}
+        <div class="glass-panel rounded-2xl p-6 border border-slate-800 space-y-4">
+          <h4 class="text-sm font-bold text-white">پروژه‌های مرتبط</h4>
+          <div class="space-y-3">
+            {% for rel in related_projects %}
+            <a href="{% url 'portfolio:detail' rel.slug %}" class="flex items-center gap-3 group">
+              <div class="w-12 h-12 rounded-lg bg-slate-800 overflow-hidden shrink-0">
+                {% if rel.thumbnail %}
+                <img src="{{ rel.thumbnail.url }}" alt="{{ rel.title }}" class="w-full h-full object-cover">
+                {% endif %}
+              </div>
+              <div>
+                <div class="text-xs font-bold text-white group-hover:text-emerald-400 transition-colors line-clamp-1">{{ rel.title }}</div>
+                <div class="text-[10px] text-slate-400 mt-0.5">{{ rel.category.name }}</div>
+              </div>
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+{% endblock %}

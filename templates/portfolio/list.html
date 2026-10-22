@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}نمونه‌کارهای طراحی وب و برنامه‌نویسی | {{ site_settings.site_name|default:"Tech Service" }}{% endblock %}
+
+{% block meta_description %}مشاهده نمونه‌کارهای اجرا شده تیم تک سرویس در حوزه‌های شرکتی، فروشگاهی، استارتاپی و خدماتی.{% endblock %}
+
+{% block content %}
+<div class="py-12 lg:py-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Breadcrumb -->
+    {% include 'components/breadcrumb.html' %}
+
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <span class="text-emerald-400 text-sm font-semibold tracking-wider uppercase">ویترین افتخارات ما</span>
+      <h1 class="text-3xl sm:text-5xl font-black text-white mt-2 mb-4">نمونه‌کارهای انجام شده</h1>
+      <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+        پروژه‌های متنوعی که با دقت و وسواس بالا برای کسب‌وکارهای نوآور طراحی و اجرا کرده‌ایم.
+      </p>
+    </div>
+
+    <!-- HTMX Category Filter Tabs -->
+    <div class="flex flex-wrap items-center justify-center gap-2 mb-12">
+      <a href="{% url 'portfolio:list' %}"
+         hx-get="{% url 'portfolio:list' %}?category=all"
+         hx-target="#project-grid"
+         hx-swap="outerHTML"
+         hx-indicator="#loading-indicator"
+         class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all {% if active_category == 'all' or not active_category %}bg-emerald-500 text-white shadow-lg shadow-emerald-500/25{% else %}glass-panel text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800{% endif %}">
+        همه پروژه‌ها
+      </a>
+      {% for cat in categories %}
+      <a href="{% url 'portfolio:list' %}?category={{ cat.slug }}"
+         hx-get="{% url 'portfolio:list' %}?category={{ cat.slug }}"
+         hx-target="#project-grid"
+         hx-swap="outerHTML"
+         hx-indicator="#loading-indicator"
+         class="px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all {% if active_category == cat.slug %}bg-emerald-500 text-white shadow-lg shadow-emerald-500/25{% else %}glass-panel text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-800{% endif %}">
+        {{ cat.name }}
+      </a>
+      {% endfor %}
+    </div>
+
+    <!-- Loading Indicator -->
+    <div id="loading-indicator" class="htmx-indicator text-center py-6 text-emerald-400 text-sm">
+      <span class="animate-spin inline-block w-5 h-5 border-2 border-emerald-400 border-t-transparent rounded-full ml-2"></span>
+      در حال دریافت پروژه‌ها...
+    </div>
+
+    <!-- Project Grid Container (Replaced by HTMX) -->
+    {% include 'portfolio/partials/project_grid.html' %}
+
+  </div>
+</div>
+{% endblock %}

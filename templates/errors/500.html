@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}خطای سرور | ۵۰۰{% endblock %}
+
+{% block content %}
+<div class="py-24 text-center max-w-lg mx-auto px-4 space-y-6">
+  <div class="text-7xl font-black text-rose-500">۵۰۰</div>
+  <h1 class="text-2xl font-bold text-white">خطای غیرمنتظره در سرور!</h1>
+  <p class="text-sm text-slate-400 leading-relaxed">
+    مشکلی در پردازش درخواست پیش آمده است. تیم فنی ما در حال بررسی و رفع مشکل می‌باشد.
+  </p>
+  <div class="pt-4">
+    <a href="{% url 'core:home' %}" class="px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm inline-block shadow-lg shadow-emerald-500/20">
+      بازگشت به صفحه اصلی
+    </a>
+  </div>
+</div>
+{% endblock %}

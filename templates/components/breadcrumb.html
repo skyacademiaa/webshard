@@ -1,0 +1,13 @@
+<nav class="flex items-center text-xs text-slate-400 mb-8 py-3 px-4 glass-panel rounded-xl max-w-fit" aria-label="Breadcrumb">
+  <ol class="inline-flex items-center space-x-1 space-x-reverse">
+    <li class="inline-flex items-center">
+      <a href="{% url 'core:home' %}" class="inline-flex items-center text-slate-400 hover:text-emerald-400 transition-colors">
+        <svg class="w-3.5 h-3.5 ml-1.5" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+        </svg>
+        صفحه اصلی
+      </a>
+    </li>
+    {% block breadcrumb_items %}{% endblock %}
+  </ol>
+</nav>

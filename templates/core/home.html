@@ -1,0 +1,404 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}صفحه اصلی | {{ site_settings.site_name|default:"Tech Service" }}{% endblock %}
+
+{% block content %}
+<!-- 🚀 Hero Section -->
+<section class="relative pt-12 pb-24 lg:pt-20 lg:pb-32 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-4xl mx-auto space-y-8">
+      
+      <!-- Top Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border border-emerald-500/30 text-emerald-300 text-xs sm:text-sm font-medium animate-pulse">
+        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+        توسعه اختصاصی بر پایه‌ی جدیدترین تکنولوژی‌های هوش مصنوعی و وب
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight sm:leading-tight lg:leading-tight">
+        ما ایده‌های شما را به 
+        <span class="text-gradient">محصولات دیجیتال قدرتمند</span>
+        تبدیل می‌کنیم
+      </h1>
+
+      <!-- Description -->
+      <p class="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
+        ارائه خدمات طراحی وب‌سایت مدرن، سیستم‌های یکپارچه CRM و پلتفرم‌های CMS اختصاصی با تمرکز بر سرعت فوق‌العاده، رابط کاربری جذاب و سئوی فنی قوی.
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
+        <a href="{% url 'pricing:calculator' %}" 
+           class="px-8 py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold text-base shadow-xl shadow-emerald-500/25 hover:shadow-emerald-500/40 transition-all duration-300 transform hover:-translate-y-0.5 flex items-center gap-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+          </svg>
+          محاسبه آنلاین قیمت
+        </a>
+        <a href="{% url 'portfolio:list' %}" 
+           class="px-8 py-4 rounded-xl glass-panel hover:bg-slate-800 text-slate-200 hover:text-white font-bold text-base transition-all duration-300 flex items-center gap-2 border border-slate-700">
+          <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+          </svg>
+          مشاهده نمونه‌کارها
+        </a>
+      </div>
+
+      <!-- Feature highlights bar -->
+      <div class="pt-12 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto border-t border-slate-800/80 text-center">
+        <div class="p-3">
+          <div class="text-2xl font-black text-emerald-400">۱۰۰٪</div>
+          <div class="text-xs text-slate-400 mt-1">طراحی اختصاصی و ریسپانسیو</div>
+        </div>
+        <div class="p-3">
+          <div class="text-2xl font-black text-emerald-400">&lt; ۱ ثانیه</div>
+          <div class="text-xs text-slate-400 mt-1">لود تایم بهینه‌شده</div>
+        </div>
+        <div class="p-3">
+          <div class="text-2xl font-black text-emerald-400">۲۴/۷</div>
+          <div class="text-xs text-slate-400 mt-1">پشتیبانی و نگهداری</div>
+        </div>
+        <div class="p-3">
+          <div class="text-2xl font-black text-emerald-400">A+</div>
+          <div class="text-xs text-slate-400 mt-1">گرید امنیت و سئو</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 🛠️ Services Section -->
+<section class="py-20 relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <span class="text-emerald-400 text-sm font-semibold tracking-wider uppercase">راهکارهای ما</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">خدمات تخصصی توسعه وب</h2>
+      <p class="text-slate-400 mt-3 text-sm sm:text-base">تیم ما راهکارهای متناسب با نیاز کسب‌وکار شما را با استانداردهای جهانی ارائه می‌دهد.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {% for service in services %}
+      <div class="glass-card rounded-2xl p-8 flex flex-col justify-between group">
+        <div>
+          <!-- Icon -->
+          <div class="w-14 h-14 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-300">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3 group-hover:text-emerald-400 transition-colors">
+            {{ service.title }}
+          </h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-6">
+            {{ service.short_description }}
+          </p>
+
+          <!-- Features List -->
+          {% if service.features.all %}
+          <ul class="space-y-2.5 mb-8 border-t border-slate-800/80 pt-4">
+            {% for feature in service.features.all|slice:":3" %}
+            <li class="flex items-center text-xs text-slate-300 gap-2">
+              <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>{{ feature.title }}</span>
+            </li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+
+        <a href="{% url 'services:detail' service.slug %}" class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-400 hover:text-emerald-300 group-hover:translate-x-[-4px] transition-transform">
+          <span>مشاهده جزئیات خدمت</span>
+          <span>←</span>
+        </a>
+      </div>
+      {% empty %}
+      <!-- Static Fallback Cards if DB is empty -->
+      <div class="glass-card rounded-2xl p-8">
+        <div class="w-14 h-14 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-6">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9"/></svg>
+        </div>
+        <h3 class="text-xl font-bold text-white mb-3">طراحی و توسعه وب</h3>
+        <p class="text-slate-400 text-sm leading-relaxed mb-6">ساخت وب‌سایت‌های شرکتی و فروشگاهی با طراحی اختصاصی، پرسرعت، کاملاً واکنش‌گرا و منطبق با اصول روز سئو.</p>
+        <a href="{% url 'services:list' %}" class="text-sm font-semibold text-emerald-400">اطلاعات بیشتر ←</a>
+      </div>
+      <div class="glass-card rounded-2xl p-8">
+        <div class="w-14 h-14 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-6">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </div>
+        <h3 class="text-xl font-bold text-white mb-3">توسعه سیستم‌های CRM</h3>
+        <p class="text-slate-400 text-sm leading-relaxed mb-6">سیستم‌های اختصاصی مدیریت مشتریان و اتوماسیون فروش جهت رشد درآمد و ارتقای ارتباط با مخاطبین کسب‌وکار.</p>
+        <a href="{% url 'services:list' %}" class="text-sm font-semibold text-emerald-400">اطلاعات بیشتر ←</a>
+      </div>
+      <div class="glass-card rounded-2xl p-8">
+        <div class="w-14 h-14 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-6">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+        </div>
+        <h3 class="text-xl font-bold text-white mb-3">سیستم مدیریت محتوا (CMS)</h3>
+        <p class="text-slate-400 text-sm leading-relaxed mb-6">پنل مدیریتی قدرتمند، امن و آسان برای به‌روزرسانی محتوا، مقالات، قیمت‌ها و محصولات بدون وابستگی فنی.</p>
+        <a href="{% url 'services:list' %}" class="text-sm font-semibold text-emerald-400">اطلاعات بیشتر ←</a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- 💼 Featured Projects Section -->
+<section class="py-20 bg-slate-900/40 relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+      <div>
+        <span class="text-emerald-400 text-sm font-semibold tracking-wider uppercase">پروژه‌های برگزیده</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">نمونه‌کارهای اخیر ما</h2>
+      </div>
+      <a href="{% url 'portfolio:list' %}" class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-400 hover:text-emerald-300">
+        مشاهده تمام نمونه‌کارها (۱۲+ پروژه) ←
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {% for project in featured_projects %}
+      <div class="glass-card rounded-2xl overflow-hidden group flex flex-col">
+        <!-- Thumbnail -->
+        <div class="relative h-56 bg-slate-800 overflow-hidden">
+          {% if project.thumbnail %}
+          <img src="{{ project.thumbnail.url }}" alt="{{ project.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          {% else %}
+          <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900 text-slate-600">
+            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          </div>
+          {% endif %}
+          <div class="absolute top-4 right-4 bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-full text-xs font-medium text-emerald-400 border border-slate-700">
+            {{ project.category.name|default:"وب‌سایت" }}
+          </div>
+        </div>
+
+        <!-- Info -->
+        <div class="p-6 flex flex-col flex-grow justify-between">
+          <div>
+            <h3 class="text-lg font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors">
+              {{ project.title }}
+            </h3>
+            <p class="text-xs text-slate-400 line-clamp-2 mb-4 leading-relaxed">
+              {{ project.short_description }}
+            </p>
+          </div>
+
+          <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between">
+            <div class="flex flex-wrap gap-1">
+              {% for tech in project.get_tech_list|slice:":3" %}
+              <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded">#{{ tech }}</span>
+              {% endfor %}
+            </div>
+            <a href="{% url 'portfolio:detail' project.slug %}" class="text-xs text-emerald-400 font-semibold hover:underline">
+              جزئیات ←
+            </a>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-span-3 text-center py-12 text-slate-500">
+        نمونه‌کاری برای نمایش موجود نیست. لطفاً از پنل ادمین ثبت کنید.
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ⚡ Work Process (فرآیند کاری) -->
+<section class="py-20 relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <span class="text-emerald-400 text-sm font-semibold tracking-wider uppercase">چگونه کار می‌کنیم؟</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2">فرآیند ۴ مرحله‌ای اجرای پروژه</h2>
+      <p class="text-slate-400 mt-3 text-sm">از ایده تا اجرای نهایی با برنامه‌ریزی دقیق، شفافیت کامل و گزارش‌دهی لحظه‌ای.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="glass-panel p-6 rounded-2xl relative border border-slate-800">
+        <div class="text-4xl font-black text-emerald-500/20 absolute top-4 left-4">01</div>
+        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-4">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+        </div>
+        <h4 class="text-lg font-bold text-white mb-2">تحلیل و نیازسنجی</h4>
+        <p class="text-xs text-slate-400 leading-relaxed">بررسی اهداف کسب‌وکار، تحلیل رقبا، تدوین سند مشخصات فنی (PRD) و زمان‌بندی دقیق.</p>
+      </div>
+
+      <div class="glass-panel p-6 rounded-2xl relative border border-slate-800">
+        <div class="text-4xl font-black text-emerald-500/20 absolute top-4 left-4">02</div>
+        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-4">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+        </div>
+        <h4 class="text-lg font-bold text-white mb-2">طراحی رابط و تجربه کاربری (UI/UX)</h4>
+        <p class="text-xs text-slate-400 leading-relaxed">طراحی Wireframe و نمونه اولیه در فیگما با هویت بصری جذاب و تست کاربرپسند بودن.</p>
+      </div>
+
+      <div class="glass-panel p-6 rounded-2xl relative border border-slate-800">
+        <div class="text-4xl font-black text-emerald-500/20 absolute top-4 left-4">03</div>
+        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-4">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+        </div>
+        <h4 class="text-lg font-bold text-white mb-2">کدنویسی و توسعه اختصاصی</h4>
+        <p class="text-xs text-slate-400 leading-relaxed">توسعه بک‌اند قدرتمند با جنگو، پیاده‌سازی فرانت‌اند فوق‌العاده سریع و یکپارچه‌سازی APIها.</p>
+      </div>
+
+      <div class="glass-panel p-6 rounded-2xl relative border border-slate-800">
+        <div class="text-4xl font-black text-emerald-500/20 absolute top-4 left-4">04</div>
+        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-4">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <h4 class="text-lg font-bold text-white mb-2">تست، تحویل و پشتیبانی مداوم</h4>
+        <p class="text-xs text-slate-400 leading-relaxed">تست امنیت، سئو و بهینه‌سازی سرعت، دیپلوی روی هاست ابری و ارائه آموزش و پشتیبانی رایگان.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 💰 Interactive Pricing Calculator CTA Section -->
+<section class="py-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="relative rounded-3xl overflow-hidden glass-panel border border-emerald-500/30 p-8 sm:p-12 lg:p-16">
+      <div class="absolute -right-20 -top-20 w-80 h-80 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="relative z-10 max-w-3xl space-y-6">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-semibold border border-emerald-500/30">
+          قابلیت ویژه مشابه سایت bamboweb.ir
+        </span>
+        <h3 class="text-3xl sm:text-4xl font-black text-white">
+          هزینه دقیق پروژه خود را در کمتر از ۱ دقیقه محاسبه کنید!
+        </h3>
+        <p class="text-slate-300 text-base leading-relaxed">
+          با استفاده از ابزار محاسبه آنلاین قیمت، امکانات مورد نظر سایت خود را (هاست، سئو، درگاه پرداخت، طراحی، بلاگ و ...) انتخاب کنید و برآورد لحظه‌ای تعرفه را مشاهده نمایید.
+        </p>
+        <div class="pt-2">
+          <a href="{% url 'pricing:calculator' %}" 
+             class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-base shadow-xl shadow-emerald-500/30 transition-all">
+            <span>ورود به ماشین حساب قیمت</span>
+            <span>←</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 📝 Latest Articles (مقالات اخیر) -->
+{% if latest_articles %}
+<section class="py-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between mb-12">
+      <div>
+        <span class="text-emerald-400 text-sm font-semibold tracking-wider uppercase">وبلاگ و آموزش</span>
+        <h2 class="text-3xl font-extrabold text-white mt-1">جدیدترین مقالات تخصصی</h2>
+      </div>
+      <a href="{% url 'blog:list' %}" class="text-sm font-semibold text-emerald-400 hover:underline">
+        مشاهده همه مقالات ←
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {% for article in latest_articles %}
+      <article class="glass-card rounded-2xl overflow-hidden flex flex-col group">
+        <div class="h-48 bg-slate-800 overflow-hidden relative">
+          {% if article.cover %}
+          <img src="{{ article.cover.url }}" alt="{{ article.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          {% else %}
+          <div class="w-full h-full flex items-center justify-center bg-slate-800 text-slate-600">
+            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
+          </div>
+          {% endif %}
+          {% if article.category %}
+          <span class="absolute top-3 right-3 bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-full text-[11px] text-emerald-400 border border-slate-700">
+            {{ article.category.name }}
+          </span>
+          {% endif %}
+        </div>
+        <div class="p-6 flex flex-col flex-grow justify-between">
+          <div>
+            <div class="flex items-center gap-3 text-xs text-slate-500 mb-3">
+              <span>{{ article.published_at|date:"Y/m/d" }}</span>
+              <span>•</span>
+              <span>{{ article.reading_time|default:3 }} دقیقه مطالعه</span>
+            </div>
+            <h3 class="text-base font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors">
+              {{ article.title }}
+            </h3>
+            <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed">
+              {{ article.excerpt|default:article.content|striptags|truncatewords:20 }}
+            </p>
+          </div>
+          <a href="{% url 'blog:detail' article.slug %}" class="mt-4 text-xs font-bold text-emerald-400 hover:text-emerald-300 inline-flex items-center gap-1">
+            ادامه مطلب ←
+          </a>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- 💬 Testimonials (نظرات مشتریان) -->
+{% if testimonials %}
+<section class="py-20 bg-slate-900/30">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <span class="text-emerald-400 text-sm font-semibold tracking-wider uppercase">اعتماد مشتریان</span>
+      <h2 class="text-3xl font-extrabold text-white mt-1">نظرات کارفرمایان درباره همکاری با ما</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {% for testimonial in testimonials %}
+      <div class="glass-card rounded-2xl p-6 flex flex-col justify-between">
+        <div class="space-y-4">
+          <!-- Stars -->
+          <div class="flex text-amber-400 text-sm gap-1">
+            ★★★★★
+          </div>
+          <p class="text-sm text-slate-300 leading-relaxed italic">
+            "{{ testimonial.content }}"
+          </p>
+        </div>
+        <div class="pt-6 mt-6 border-t border-slate-800 flex items-center gap-3">
+          {% if testimonial.avatar %}
+          <img src="{{ testimonial.avatar.url }}" alt="{{ testimonial.name }}" class="w-10 h-10 rounded-full object-cover">
+          {% else %}
+          <div class="w-10 h-10 rounded-full bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center text-sm">
+            {{ testimonial.name|slice:":1" }}
+          </div>
+          {% endif %}
+          <div>
+            <div class="text-sm font-bold text-white">{{ testimonial.name }}</div>
+            <div class="text-xs text-slate-400">{{ testimonial.role|default:testimonial.company }}</div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- 🎯 Final CTA -->
+<section class="py-20">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
+    <h2 class="text-3xl sm:text-4xl font-extrabold text-white">
+      آماده‌اید پروژه بعدی خود را با استانداردهای مدرن شروع کنید؟
+    </h2>
+    <p class="text-slate-400 max-w-xl mx-auto text-base">
+      همین حالا با ما تماس بگیرید یا درخواست سفارش خود را ثبت نمایید تا مشاوران ما با شما تماس بگیرند.
+    </p>
+    <div class="flex flex-wrap items-center justify-center gap-4">
+      <a href="{% url 'quote:quote' %}" class="px-8 py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold text-base shadow-xl shadow-emerald-500/30 hover:scale-105 transition-all">
+        ثبت درخواست مشاوره و سفارش
+      </a>
+      <a href="{% url 'contact:contact' %}" class="px-8 py-4 rounded-xl glass-panel text-slate-200 hover:text-white font-bold text-base transition-all">
+        تماس مستقیم با کارشناسان
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}

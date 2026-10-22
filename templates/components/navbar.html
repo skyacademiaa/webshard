@@ -1,0 +1,124 @@
+<header x-data="{ mobileMenuOpen: false }" class="sticky top-0 z-50 glass-panel border-b border-slate-800/80 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+      
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-3">
+        <a href="{% url 'core:home' %}" class="flex items-center gap-3 group">
+          <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center text-white shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-transform duration-300">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+            </svg>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-xl font-bold tracking-tight text-white group-hover:text-emerald-400 transition-colors">
+              {{ site_settings.site_name|default:"تک سرویس" }}
+            </span>
+            <span class="text-xs text-slate-400">
+              {{ site_settings.tagline|default:"توسعه تخصصی وب و نرم‌افزار" }}
+            </span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="hidden md:flex items-center gap-1 lg:gap-2">
+        <a href="{% url 'core:home' %}" 
+           class="px-3 py-2 text-sm font-medium rounded-lg transition-colors {% if request.resolver_match.url_name == 'home' %}text-emerald-400 bg-emerald-500/10 border border-emerald-500/20{% else %}text-slate-300 hover:text-white hover:bg-slate-800/60{% endif %}">
+          صفحه اصلی
+        </a>
+        <a href="{% url 'services:list' %}" 
+           class="px-3 py-2 text-sm font-medium rounded-lg transition-colors {% if 'services' in request.path %}text-emerald-400 bg-emerald-500/10 border border-emerald-500/20{% else %}text-slate-300 hover:text-white hover:bg-slate-800/60{% endif %}">
+          خدمات
+        </a>
+        <a href="{% url 'portfolio:list' %}" 
+           class="px-3 py-2 text-sm font-medium rounded-lg transition-colors {% if 'portfolio' in request.path %}text-emerald-400 bg-emerald-500/10 border border-emerald-500/20{% else %}text-slate-300 hover:text-white hover:bg-slate-800/60{% endif %}">
+          نمونه‌کارها
+        </a>
+        <a href="{% url 'pricing:calculator' %}" 
+           class="px-3 py-2 text-sm font-medium rounded-lg transition-colors {% if 'pricing' in request.path %}text-emerald-400 bg-emerald-500/10 border border-emerald-500/20{% else %}text-slate-300 hover:text-white hover:bg-slate-800/60{% endif %} flex items-center gap-1.5">
+          <span>محاسبه قیمت</span>
+          <span class="text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-1.5 py-0.5 rounded-full font-semibold">آنلاین</span>
+        </a>
+        <a href="{% url 'blog:list' %}" 
+           class="px-3 py-2 text-sm font-medium rounded-lg transition-colors {% if 'blog' in request.path %}text-emerald-400 bg-emerald-500/10 border border-emerald-500/20{% else %}text-slate-300 hover:text-white hover:bg-slate-800/60{% endif %}">
+          مقالات
+        </a>
+        <a href="{% url 'about:about' %}" 
+           class="px-3 py-2 text-sm font-medium rounded-lg transition-colors {% if 'about' in request.path %}text-emerald-400 bg-emerald-500/10 border border-emerald-500/20{% else %}text-slate-300 hover:text-white hover:bg-slate-800/60{% endif %}">
+          درباره ما
+        </a>
+        <a href="{% url 'contact:contact' %}" 
+           class="px-3 py-2 text-sm font-medium rounded-lg transition-colors {% if 'contact' in request.path %}text-emerald-400 bg-emerald-500/10 border border-emerald-500/20{% else %}text-slate-300 hover:text-white hover:bg-slate-800/60{% endif %}">
+          تماس با ما
+        </a>
+      </nav>
+
+      <!-- CTA Button & Phone -->
+      <div class="hidden md:flex items-center gap-4">
+        {% if site_settings.phone_1 %}
+        <a href="tel:{{ site_settings.phone_1 }}" class="text-xs text-slate-400 hover:text-slate-200 flex items-center gap-1.5" dir="ltr">
+          <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+          </svg>
+          <span>{{ site_settings.phone_1 }}</span>
+        </a>
+        {% endif %}
+        
+        <a href="{% url 'quote:quote' %}" 
+           class="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium rounded-xl group bg-gradient-to-r from-emerald-500 to-teal-500 group-hover:from-emerald-600 group-hover:to-teal-600 text-white shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/40 transition-all duration-300">
+          <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-slate-900 rounded-[10px] group-hover:bg-opacity-0 font-semibold flex items-center gap-2">
+            <svg class="w-4 h-4 text-emerald-400 group-hover:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+            سفارش پروژه
+          </span>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <div class="flex md:hidden items-center gap-2">
+        <a href="{% url 'quote:quote' %}" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-emerald-600 text-white">
+          سفارش
+        </a>
+        <button @click="mobileMenuOpen = !mobileMenuOpen" 
+                type="button" 
+                class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors focus:outline-none">
+          <svg x-show="!mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg x-show="mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Mobile Drawer Menu -->
+  <div x-show="mobileMenuOpen" 
+       x-transition:enter="transition ease-out duration-200"
+       x-transition:enter-start="opacity-0 -translate-y-4"
+       x-transition:enter-end="opacity-100 translate-y-0"
+       x-transition:leave="transition ease-in duration-150"
+       x-transition:leave-start="opacity-100 translate-y-0"
+       x-transition:leave-end="opacity-0 -translate-y-4"
+       class="md:hidden glass-panel border-b border-slate-800 px-4 pt-2 pb-6 space-y-2">
+    <a href="{% url 'core:home' %}" class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-200 hover:bg-slate-800 hover:text-emerald-400">صفحه اصلی</a>
+    <a href="{% url 'services:list' %}" class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-200 hover:bg-slate-800 hover:text-emerald-400">خدمات</a>
+    <a href="{% url 'portfolio:list' %}" class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-200 hover:bg-slate-800 hover:text-emerald-400">نمونه‌کارها</a>
+    <a href="{% url 'pricing:calculator' %}" class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-200 hover:bg-slate-800 hover:text-emerald-400 flex items-center justify-between">
+      <span>محاسبه قیمت آنلاین</span>
+      <span class="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full">ویژه</span>
+    </a>
+    <a href="{% url 'blog:list' %}" class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-200 hover:bg-slate-800 hover:text-emerald-400">مقالات</a>
+    <a href="{% url 'about:about' %}" class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-200 hover:bg-slate-800 hover:text-emerald-400">درباره ما</a>
+    <a href="{% url 'contact:contact' %}" class="block px-3 py-2.5 rounded-lg text-base font-medium text-slate-200 hover:bg-slate-800 hover:text-emerald-400">تماس با ما</a>
+    <div class="pt-4 border-t border-slate-800">
+      <a href="{% url 'quote:quote' %}" class="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold shadow-lg shadow-emerald-500/20">
+        ثبت سفارش پروژه
+      </a>
+    </div>
+  </div>
+</header>
